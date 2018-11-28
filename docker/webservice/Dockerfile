@@ -1,7 +1,7 @@
 # escape=`
-FROM microsoft/dotnet-framework:3.5-sdk AS builder
+FROM microsoft/dotnet-framework:3.5-sdk-windowsservercore-1709 AS builder
 
-RUN Install-PackageProvider -Name chocolatey -RequiredVersion 2.8.5.130 -Force; `
+RUN Install-PackageProvider -Name "chocolatey" -RequiredVersion 2.8.5.130 -Force; `
     Install-Package -Name webdeploy -RequiredVersion 3.6.0 -Force
     
 WORKDIR /src
@@ -10,7 +10,7 @@ RUN mkdir 'C:\Windows\Microsoft.NET\Framework\v2.0.50727\Temporary ASP.NET Files
     msbuild .\WebService\website.publishproj /p:DeployOnBuild=true /p:OutputPath=c:\out\ /p:Configuration=Release /p:AutoParameterizationWebConfigConnectionStrings=False
 
 # PetShop
-FROM microsoft/aspnet:20181009-3.5-windowsservercore-ltsc2016
+FROM mcr.microsoft.com/dotnet/framework/aspnet:3.5-windowsservercore-1709
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 RUN Install-WindowsFeature NET-HTTP-Activation; `

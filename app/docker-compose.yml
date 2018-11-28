@@ -3,9 +3,17 @@ version: '3.3'
 services:
   
   petshop-db:
-    image: sixeyed/petshop-db
+    image: microsoft/mssql-server-windows-express:1709
+    volumes:
+      - g:/sqldata:c:/sqldata
     networks:
       - app-net
+    ports:
+      - "11433:1433" 
+    environment:
+      SA_PASSWORD: "Hobbes!78217"
+      ACCEPT_EULA: "Y"
+      attach_dbs: "[{'dbName':'MSPetShop4','dbFiles':['C:\\\\sqldata\\\\MSPetShop4.mdf','C:\\\\sqldata\\\\MSPetShop4_log.ldf']},{'dbName':'MSPetShop4Orders','dbFiles':['C:\\\\sqldata\\\\MSPetShop4Orders.mdf','C:\\\\sqldata\\\\MSPetShop4Orders_log.ldf']},{'dbName':'MSPetShop4Profile','dbFiles':['C:\\\\sqldata\\\\MSPetShop4Profile.mdf','C:\\\\sqldata\\\\MSPetShop4Profile_log.ldf']}]"
 
   petshop-web:
     image: sixeyed/petshop-web

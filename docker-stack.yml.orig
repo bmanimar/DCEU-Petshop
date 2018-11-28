@@ -3,17 +3,9 @@ version: '3.3'
 services:
   
   petshop-db:
-    image: microsoft/mssql-server-windows-express:1709
-    volumes:
-      - "g:\\sqldata:C:\\sqldata"
+    image: sixeyed/petshop-db
     networks:
       - app-net
-    ports:
-      - "11433:1433" # REMARK: This is currently required, needs investigation
-    environment:
-      - "sa_password=Hobbes!78217"
-      - "ACCEPT_EULA=Y"
-      - attach_dbs="[{'dbName':'MSPetShop4','dbFiles':['C:\\sqldata\\MSPetShop4.mdf','C:\\sqldata\\MSPetShop4_log.ldf']},{'dbName':'MSPetShop4Orders','dbFiles':['C:\\sqldata\\MSPetShop4Orders.mdf','C:\\sqldata\\MSPetShop4Orders_log.ldf']},{'dbName':'MSPetShop4Profile','dbFiles':['C:\\sqldata\\MSPetShop4Profile.mdf','C:\\sqldata\\MSPetShop4Profile_log.ldf']}]"
     deploy:
       endpoint_mode: dnsrr
       placement:
