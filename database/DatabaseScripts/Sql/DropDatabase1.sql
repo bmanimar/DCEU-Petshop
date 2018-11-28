@@ -20,5 +20,3 @@ CLOSE crsr
 DEALLOCATE crsr
 
 DROP DATABASE [MSPetShop4]
-
-
